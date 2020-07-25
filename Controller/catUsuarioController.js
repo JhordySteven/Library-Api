@@ -1,9 +1,85 @@
-var express=require('express');
+var pool=require('../Conexion/conexionBD');
+
+module.exports={
+  //api listado
+  listarCatUsuario(){
+    const sql="call usp_selCategoriaUsuario()";
+    pool.query(sql,function(err,resp){
+    if(err){
+        throw err;
+    }
+    if(resp.length>0){
+      res.send(resp);
+    }else{
+      res.send('not result');
+    }
+    res.end();
+    })
+  },
+  //api registro
+  registrarCatUsuario(){
+    const sql = 'call usp_addCatUsuario(?,?)';
+  const MntCatUsuario = {
+    nombre:req.body.nombre,
+    estado: req.body.estado,
+  };
+  console.log(MntCatUsuario);
+  pool.query(sql, [MntCatUsuario.nombre,MntCatUsuario.estado], error => {
+    if (error) throw error;
+    else res.send("ok");
+    res.end();
+  });
+  },
+
+  //api update
+  updateCatUsuario(){
+    const sql="call usp_updateCatUsuario(?,?,?)";
+    const MntCatUsuario = {
+      nombre:req.body.nombre,
+      estado:req.body.estado,
+      categoriaUsuId: req.body.categoriaUsuId,  
+    };
+    pool.query(sql, [MntCatUsuario.nombre,MntCatUsuario.estado,MntCatUsuario.categoriaUsuId], error => {
+      if (error) throw error;
+      else res.send('ok');
+      res.end();
+    });
+  },
+
+  //api activate
+  activateCatUsuario(){
+    const sql="call usp_activarCatUsuario(?)";
+    const MntCatUsuario = {
+      categoriaUsuId: req.body.categoriaUsuId,
+    };
+    pool.query(sql, [MntCatUsuario.categoriaUsuId], error => {
+      if (error) throw error;
+      else res.send('ok');
+      res.end();
+    });
+  },
+  
+  //api delete
+  deleteCatUsuario(){
+    const sql="call usp_deleteCatUsuario(?)";
+    const MntCatUsuario = {
+      categoriaUsuId: req.body.categoriaUsuId,  
+    };
+    pool.query(sql, [MntCatUsuario.categoriaUsuId],error => {
+      if (error) throw error;
+      else res.send('ok');
+      res.end();
+    });
+  }
+}
+
+
+/*var express=require('express');
 var router=express.Router();
 
 var pool=require('../Conexion/conexionBD');
 
-/*Api listado*/
+//Api listado
 router.get("/api/listarCatUsuario",function(req,res){
   const sql="call usp_selCategoriaUsuario()";
     pool.query(sql,function(err,resp){
@@ -18,7 +94,7 @@ router.get("/api/listarCatUsuario",function(req,res){
     res.end();
 })
 });
-/*Api registro */
+//Api registro
 router.post('/api/mntCatUsuario', (req, res) => {
   const sql = 'call usp_addCatUsuario(?,?)';
   const MntCatUsuario = {
@@ -33,7 +109,7 @@ router.post('/api/mntCatUsuario', (req, res) => {
   });
 });
 
-/*api update */
+//api update
 router.put('/api/updtCatUsuario',(req,res)=>{
   const sql="call usp_updateCatUsuario(?,?,?)";
   const MntCatUsuario = {
@@ -48,7 +124,7 @@ router.put('/api/updtCatUsuario',(req,res)=>{
   });
 })
 
-/*api activar */
+//api activar
 router.put('/api/activeCatUsuario',(req,res)=>{
   const sql="call usp_activarCatUsuario(?)";
   const MntCatUsuario = {
@@ -60,7 +136,7 @@ router.put('/api/activeCatUsuario',(req,res)=>{
     res.end();
   });
 })
-/*api delete */
+//api delete
 router.put('/api/deleteCatUsuario',(req,res)=>{
   const sql="call usp_deleteCatUsuario(?)";
   const MntCatUsuario = {
@@ -72,4 +148,4 @@ router.put('/api/deleteCatUsuario',(req,res)=>{
     res.end();
   });
 })
-module.exports=router;
+module.exports=router;*/

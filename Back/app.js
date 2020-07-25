@@ -20,15 +20,14 @@ const staticRoute = path.join(__dirname, '../archivo/foto')
 app.use('/sources', express.static(staticRoute))
 
 var docente=require('../Controller/MenuController');
-var rol=require('../Controller/catProductoController');
-//var marca=require('../Controller/marcaProductoController');
+var catProducto=require('../Ruta/catProductoController');
 var marca=require('../Ruta/routeMarcaProducto');
 var subirfoto=require('../Controller/subirFotoController');
 var producto=require('../Controller/productoController');
 var catUsuario=require('../Controller/catUsuarioController');
 app.use(marca);
 app.use(docente);
-app.use(rol);
+app.use(catProducto);
 app.use(subirfoto);	
 app.use(producto);
 app.use(catUsuario);

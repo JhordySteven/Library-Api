@@ -1,9 +1,87 @@
-var express=require('express');
+
+var pool=require('../Conexion/conexionBD');
+
+module.exports={
+  //listado
+  listadoCatProducto(req,resp){
+    const sql="call usp_selCatProducto()";
+    pool.query(sql,function(err,resp){
+    if(err){
+        throw err;
+    }
+    if(resp.length>0){
+      res.send(resp);
+    }else{
+      res.send('not result');
+    }
+    res.end();
+    })    
+  },
+
+  //registrar
+  addCatProducto(req,resp){
+    const sql = 'call usp_insertarCatProducto(?,?)';
+    const MntCatProduct = {
+      nombre:req.body.nombre,
+      estado: req.body.estado,
+    };
+    pool.query(sql, [MntCatProduct.nombre,MntCatProduct.estado], error => {
+      if (error) throw error;
+      else res.send("ok");
+      res.end();
+    });
+  },
+
+  //update
+  updateCatProducto(req,resp){
+    const sql="call usp_updateCatProducto(?,?,?)";
+    const MntCatProduct = {
+      nombre:req.body.nombre,
+      estado:req.body.estado,
+      categoriaId: req.body.categoriaId,  
+    };
+    pool.query(sql, [MntCatProduct.nombre,MntCatProduct.estado,MntCatProduct.categoriaId], error => {
+      if (error) throw error;
+      else res.send('ok');
+      res.end();
+    });
+  },
+
+  //activate
+  activateCatProducto(req,resp){
+    const sql="call usp_activarCatProducto(?)";
+    const MntCatProduct = {
+      categoriaId: req.body.categoriaId,
+    };
+    console.log(MntCatProduct);
+    pool.query(sql, [MntCatProduct.categoriaId], error => {
+      if (error) throw error;
+      else res.send('ok');
+      res.end();
+    });
+  },
+
+  //delete
+  deleteCatProducto(req,res){
+    const sql="call usp_deleteCatProducto(?)";
+    const MntCatProduct = {
+      categoriaId: req.body.categoriaId,  
+    };
+    pool.query(sql, [MntCatProduct.categoriaId],error => {
+      if (error) throw error;
+      else res.send('ok');
+      res.end();
+    });
+  }
+}
+
+
+/*var express=require('express');
 var router=express.Router();
 
 var pool=require('../Conexion/conexionBD');
 
-/*Api listado*/
+//Api listado
 router.get("/api/listarCatProducto",function(req,res){
   const sql="call usp_selCatProducto()";
     pool.query(sql,function(err,resp){
@@ -18,7 +96,7 @@ router.get("/api/listarCatProducto",function(req,res){
     res.end();
 })
 });
-/*Api registro */
+//Api registro
 router.post('/api/mntCatProducto', (req, response) => {
   const sql = 'call usp_insertarCatProducto(?,?)';
   const MntCatProduct = {
@@ -32,7 +110,7 @@ router.post('/api/mntCatProducto', (req, response) => {
   });
 });
 
-/*api update */
+//api update
 router.put('/api/updtCatProducto',(req,res)=>{
   const sql="call usp_updateCatProducto(?,?,?)";
   const MntCatProduct = {
@@ -47,7 +125,7 @@ router.put('/api/updtCatProducto',(req,res)=>{
   });
 })
 
-/*api activar */
+//api activar
 router.put('/api/activeCatProducto',(req,res)=>{
   const sql="call usp_activarCatProducto(?)";
   const MntCatProduct = {
@@ -60,7 +138,7 @@ router.put('/api/activeCatProducto',(req,res)=>{
     res.end();
   });
 })
-/*api delete */
+//api delete
 router.put('/api/deleteCatProducto',(req,res)=>{
   const sql="call usp_deleteCatProducto(?)";
   const MntCatProduct = {
@@ -72,4 +150,4 @@ router.put('/api/deleteCatProducto',(req,res)=>{
     res.end();
   });
 })
-module.exports=router;
+module.exports=router; */
