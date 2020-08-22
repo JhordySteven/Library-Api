@@ -1,3 +1,4 @@
+var express=require('express');
 var pool=require('../Conexion/conexionBD');
 
 module.exports={

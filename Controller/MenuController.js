@@ -1,4 +1,3 @@
-
 var express=require('express');
 var router=express.Router();
 
@@ -11,7 +10,7 @@ router.get("/api/listarMenu",function(param,res){
     }
     res.write(JSON.stringify(resp));
     res.end();
-})
+    })
 })
 
 module.exports=router;

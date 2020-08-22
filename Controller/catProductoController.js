@@ -1,9 +1,9 @@
-
+var express=require('express');
 var pool=require('../Conexion/conexionBD');
 
 module.exports={
   //listado
-  listadoCatProducto(req,resp){
+  listadoCatProducto(req,res){
     const sql="call usp_selCatProducto()";
     pool.query(sql,function(err,resp){
     if(err){
@@ -19,7 +19,7 @@ module.exports={
   },
 
   //registrar
-  addCatProducto(req,resp){
+  addCatProducto(req,res){
     const sql = 'call usp_insertarCatProducto(?,?)';
     const MntCatProduct = {
       nombre:req.body.nombre,
@@ -33,7 +33,7 @@ module.exports={
   },
 
   //update
-  updateCatProducto(req,resp){
+  updateCatProducto(req,res){
     const sql="call usp_updateCatProducto(?,?,?)";
     const MntCatProduct = {
       nombre:req.body.nombre,
@@ -48,7 +48,7 @@ module.exports={
   },
 
   //activate
-  activateCatProducto(req,resp){
+  activateCatProducto(req,res){
     const sql="call usp_activarCatProducto(?)";
     const MntCatProduct = {
       categoriaId: req.body.categoriaId,
@@ -73,7 +73,6 @@ module.exports={
       res.end();
     });
   }
-}
 
 
 /*var express=require('express');
@@ -151,3 +150,5 @@ router.put('/api/deleteCatProducto',(req,res)=>{
   });
 })
 module.exports=router; */
+
+}

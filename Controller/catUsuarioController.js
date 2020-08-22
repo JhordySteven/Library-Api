@@ -1,8 +1,9 @@
+var express=require('express');
 var pool=require('../Conexion/conexionBD');
 
 module.exports={
   //api listado
-  listarCatUsuario(){
+  listarCatUsuario(req,res){
     const sql="call usp_selCategoriaUsuario()";
     pool.query(sql,function(err,resp){
     if(err){
@@ -17,7 +18,7 @@ module.exports={
     })
   },
   //api registro
-  registrarCatUsuario(){
+  registrarCatUsuario(req,res){
     const sql = 'call usp_addCatUsuario(?,?)';
   const MntCatUsuario = {
     nombre:req.body.nombre,
@@ -32,7 +33,7 @@ module.exports={
   },
 
   //api update
-  updateCatUsuario(){
+  updateCatUsuario(req,res){
     const sql="call usp_updateCatUsuario(?,?,?)";
     const MntCatUsuario = {
       nombre:req.body.nombre,
@@ -47,7 +48,7 @@ module.exports={
   },
 
   //api activate
-  activateCatUsuario(){
+  activateCatUsuario(req,res){
     const sql="call usp_activarCatUsuario(?)";
     const MntCatUsuario = {
       categoriaUsuId: req.body.categoriaUsuId,
@@ -60,7 +61,7 @@ module.exports={
   },
   
   //api delete
-  deleteCatUsuario(){
+  deleteCatUsuario(req,res){
     const sql="call usp_deleteCatUsuario(?)";
     const MntCatUsuario = {
       categoriaUsuId: req.body.categoriaUsuId,  
