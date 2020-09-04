@@ -26,12 +26,17 @@ var marca=require('../Ruta/routeMarcaProducto');
 var subirfoto=require('../Controller/subirFotoController');
 var producto=require('../Ruta/routeProducto');
 var catUsuario=require('../Ruta/routeCatUsuario');
+var usuario=require('../Ruta/routeUsuario');
+var menu=require('../Ruta/routeMenu');
+
 //var docente=require('../Controller/MenuController');
 app.use(catProducto);
 app.use(marca);
 app.use(subirfoto);	
 app.use(producto);
 app.use(catUsuario);
+app.use(usuario);
+app.use(menu);
 //app.use(docente);
 
 //creación del server

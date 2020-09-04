@@ -15,7 +15,8 @@ module.exports={
             sexo:req.body.sexo,
             foto:req.body.foto
         };
-        pool.query(sql,[MntUsuarioCliente.usuarioId,MntUsuarioCliente.categoriaUsuId,MntUsuarioCliente.nombre,
+        console.log(MntUsuarioCliente);
+        pool.query(sql,[MntUsuarioCliente.categoriaUsuId,MntUsuarioCliente.nombre,
             MntUsuarioCliente.apellido,MntUsuarioCliente.usuario,MntUsuarioCliente.contrasenia,MntUsuarioCliente.fechaNacimiento,
             MntUsuarioCliente.sexo,MntUsuarioCliente.foto],err=>{
                 if(err) throw err;
