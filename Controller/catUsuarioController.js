@@ -71,6 +71,21 @@ module.exports={
       else res.send('ok');
       res.end();
     });
+  },
+
+  //add categoriaMenu
+  addCategoria_Menu(req,res){
+    const sql="call usp_addCategoriaMenu(?,?,?)";
+    const CategoriaMenu={
+      idMenu:req.body.idMenu,
+      categoriaUsu:req.body.categoriaUsu
+    }
+    pool.query(sql,[CategoriaMenu.idMenu,CategoriaMenu.categoriaUsu],err=>{
+      if(err){
+        throw err;
+      }else res.send('ok');
+      res.end();
+    });
   }
 }
 

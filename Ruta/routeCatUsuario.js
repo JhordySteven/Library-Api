@@ -17,4 +17,7 @@ router.put("/api/deleteCatUsuario",CatUsuario.deleteCatUsuario);
 //activate
 router.put("/api/activateCatUsuario",CatUsuario.activateCatUsuario);
 
+//addCategoriaMenu
+router.post("/api/addCategoriaMenu",CatUsuario.addCategoria_Menu);
+
 module.exports=router; 
